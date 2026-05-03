@@ -1,0 +1,19 @@
+# never commit secrets or local config
+*.env
+.env*
+config.local.js
+
+# node artifacts (icon generator only)
+node_modules/
+generate-icons.js
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.idea/
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
+branch_structure.json

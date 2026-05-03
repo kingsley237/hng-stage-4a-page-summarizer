@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PageBrief Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="page">
+
+    <header class="header">
+      <div class="header-brand">
+        <svg class="logo" width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="url(#grad2)"/>
+          <rect x="9" y="7" width="12" height="16" rx="2" fill="white" opacity="0.95"/>
+          <rect x="11" y="13" width="8" height="1.5" rx="0.75" fill="#7C5DFA"/>
+          <rect x="11" y="16" width="8" height="1.5" rx="0.75" fill="#7C5DFA"/>
+          <rect x="11" y="19" width="5" height="1.5" rx="0.75" fill="#7C5DFA"/>
+          <path d="M18 7v4h3l-3-4z" fill="white" opacity="0.7"/>
+          <circle cx="23" cy="9" r="3" fill="#FFD166"/>
+          <defs>
+            <linearGradient id="grad2" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#7C5DFA"/>
+              <stop offset="100%" stop-color="#4C3BCF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div>
+          <h1 class="brand-name">PageBrief</h1>
+          <p class="brand-sub">Settings</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <section class="card" aria-labelledby="apiKeyHeading">
+        <div class="card-header">
+          <h2 class="card-title" id="apiKeyHeading">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Gemini API Key
+          </h2>
+          <p class="card-desc">
+            Your API key is stored locally on your device and never sent anywhere except Google's Gemini API.
+          </p>
+        </div>
+
+        <div class="field">
+          <label class="label" for="apiKeyInput">API Key</label>
+          <div class="input-wrap">
+            <input
+              class="input"
+              type="password"
+              id="apiKeyInput"
+              placeholder="AIza..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-describedby="apiKeyHint"
+            />
+            <button class="toggle-btn" id="toggleVisibility" type="button" aria-label="Show API key" title="Toggle visibility">
+              <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <p class="hint" id="apiKeyHint">
+            Get a free key at
+            <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="link">
+              Google AI Studio
+            </a>
+            — no credit card required.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="saveBtn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Save Key
+          </button>
+          <button class="btn btn-ghost" id="clearKeyBtn" type="button">
+            Remove Key
+          </button>
+        </div>
+
+        <div class="status hidden" id="statusMsg" role="alert" aria-live="polite"></div>
+      </section>
+
+      <section class="card" aria-labelledby="howHeading">
+        <h2 class="card-title" id="howHeading">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          How to get your API key
+        </h2>
+        <ol class="steps-list">
+          <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="link">Google AI Studio</a></li>
+          <li>Sign in with your Google account</li>
+          <li>Click <strong>Create API Key</strong></li>
+          <li>Copy the key and paste it above</li>
+          <li>Click <strong>Save Key</strong></li>
+        </ol>
+        <p class="note">
+          The free tier includes generous daily limits — more than enough for regular use.
+        </p>
+      </section>
+
+      <section class="card" aria-labelledby="cacheHeading">
+        <h2 class="card-title" id="cacheHeading">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+          Cache
+        </h2>
+        <p class="card-desc">Summaries are cached for 30 minutes per page to avoid duplicate API calls.</p>
+        <button class="btn btn-ghost" id="clearAllCacheBtn" type="button">Clear All Cached Summaries</button>
+        <div class="status hidden" id="cacheStatus" role="alert" aria-live="polite"></div>
+      </section>
+
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

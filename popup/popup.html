@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PageBrief</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app" id="app">
+
+    <header class="header">
+      <div class="header-brand">
+        <svg class="logo" width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="url(#grad)"/>
+          <rect x="9" y="7" width="12" height="16" rx="2" fill="white" opacity="0.95"/>
+          <rect x="11" y="13" width="8" height="1.5" rx="0.75" fill="#7C5DFA"/>
+          <rect x="11" y="16" width="8" height="1.5" rx="0.75" fill="#7C5DFA"/>
+          <rect x="11" y="19" width="5" height="1.5" rx="0.75" fill="#7C5DFA"/>
+          <path d="M18 7v4h3l-3-4z" fill="white" opacity="0.7"/>
+          <circle cx="23" cy="9" r="3" fill="#FFD166"/>
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#7C5DFA"/>
+              <stop offset="100%" stop-color="#4C3BCF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="brand-name">PageBrief</span>
+      </div>
+      <button class="icon-btn" id="optionsBtn" title="Settings" aria-label="Open settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="page-meta" id="pageMeta">
+      <div class="page-title-wrap">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        <span class="page-title" id="pageTitle">Loading page...</span>
+      </div>
+    </div>
+
+    <!-- idle state -->
+    <div class="state" id="stateIdle">
+      <div class="idle-illustration" aria-hidden="true">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <rect x="12" y="8" width="40" height="48" rx="6" fill="#EDE9FE"/>
+          <rect x="20" y="22" width="24" height="3" rx="1.5" fill="#7C5DFA" opacity="0.5"/>
+          <rect x="20" y="29" width="24" height="3" rx="1.5" fill="#7C5DFA" opacity="0.5"/>
+          <rect x="20" y="36" width="16" height="3" rx="1.5" fill="#7C5DFA" opacity="0.5"/>
+          <circle cx="48" cy="16" r="8" fill="#FFD166"/>
+          <path d="M44 16l2.5 2.5L52 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="idle-hint">Click below to summarize this page with AI</p>
+      <button class="btn btn-primary" id="summarizeBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        Summarize Page
+      </button>
+    </div>
+
+    <!-- loading state -->
+    <div class="state hidden" id="stateLoading" aria-live="polite" aria-label="Summarizing page">
+      <div class="spinner-wrap" aria-hidden="true">
+        <div class="spinner"></div>
+      </div>
+      <p class="loading-text" id="loadingText">Extracting page content...</p>
+      <div class="loading-steps" aria-hidden="true">
+        <span class="step active" id="step1">Extract</span>
+        <span class="step-arrow">›</span>
+        <span class="step" id="step2">Analyze</span>
+        <span class="step-arrow">›</span>
+        <span class="step" id="step3">Summarize</span>
+      </div>
+    </div>
+
+    <!-- error state -->
+    <div class="state hidden" id="stateError" role="alert">
+      <div class="error-icon" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <p class="error-message" id="errorMessage">Something went wrong.</p>
+      <div class="error-actions">
+        <button class="btn btn-primary btn-sm" id="retryBtn">Try Again</button>
+        <button class="btn btn-ghost btn-sm" id="openOptionsBtn">Open Settings</button>
+      </div>
+    </div>
+
+    <!-- result state -->
+    <div class="state hidden" id="stateResult">
+      <div class="result-meta">
+        <span class="topic-badge" id="topicBadge"></span>
+        <span class="cache-badge hidden" id="cacheBadge" title="Loaded from cache">cached</span>
+        <span class="reading-time" id="readingTime">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span id="readingTimeText"></span>
+        </span>
+      </div>
+
+      <section class="result-section" aria-labelledby="summaryHeading">
+        <h2 class="section-heading" id="summaryHeading">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          Summary
+        </h2>
+        <ul class="summary-list" id="summaryList" aria-label="Page summary points"></ul>
+      </section>
+
+      <section class="result-section" aria-labelledby="insightsHeading">
+        <h2 class="section-heading" id="insightsHeading">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          Key Insights
+        </h2>
+        <ul class="insights-list" id="insightsList" aria-label="Key insights"></ul>
+      </section>
+
+      <div class="result-actions">
+        <button class="btn btn-primary btn-sm" id="copyBtn" aria-label="Copy summary to clipboard">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          Copy
+        </button>
+        <button class="btn btn-ghost btn-sm" id="refreshBtn" aria-label="Re-summarize this page">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Refresh
+        </button>
+        <button class="btn btn-ghost btn-sm" id="clearBtn" aria-label="Clear summary and reset">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6M14 11v6"/>
+          </svg>
+          Clear
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
